@@ -1,5 +1,8 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
+0.19  Mon Jan 31 2005
+        - Fixed documentation bug in SDF.pm SYNOPSIS.
+
 0.18  Thu Jan 27 2005
         - Compatibility with Chemistry::File 0.30 (for sequential SDF reading)
 

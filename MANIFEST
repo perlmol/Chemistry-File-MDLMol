@@ -10,3 +10,4 @@ t/mdlmol.t
 t/pod.t
 t/rw.sdf
 t/sdf.t
+META.yml                                 Module meta-data (added by MakeMaker)

@@ -1,5 +1,5 @@
 package Chemistry::File::SDF;
-$VERSION = '0.18';
+$VERSION = '0.19';
 # $Id$
 
 use base "Chemistry::File";
@@ -32,7 +32,7 @@ Chemistry::File::SDF - MDL Structure Data File reader/writer
 
     # Low level interface (one at a time)
     # create reader
-    my $reader = Chemistry::Mol->read('myfile.sdf');
+    my $reader = Chemistry::Mol->file('myfile.sdf');
     $reader->open('<');
     while (my $mol = $reader->read_mol($reader->fh)) {
         # do something with $mol
@@ -179,7 +179,7 @@ Also note that SDF data field names are considered to be case-sensitive.
 
 =head1 VERSION
 
-0.18
+0.19
 
 =head1 SEE ALSO
 

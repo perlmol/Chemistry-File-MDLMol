@@ -6,6 +6,6 @@ WriteMakefile(
     'NAME'		=> 'Chemistry::File::MDLMol',
     'VERSION_FROM'	=> 'MDLMol.pm', # finds $VERSION
     'PREREQ_PM'		=> {
-        'Chemistry::Mol' => "0.10" 
+        'Chemistry::Mol' => "0.30" 
     }, # e.g., Module::Name => 1.1
 );

@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
+0.17  Wed Jul 21 2004
+        - Fixed name_is in MDLMol, which was using .sdf instead of .mol as the
+          extension.
+
 0.16  Wed Jun 30 2004
         - Added missing name_is methods.
         - Fixed default atom and bond class handling in MDLMol.

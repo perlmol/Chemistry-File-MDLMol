@@ -1,5 +1,6 @@
 package Chemistry::File::MDLMol;
-$VERSION = '0.16';
+$VERSION = '0.17';
+# $Id$
 
 use base "Chemistry::File";
 use Chemistry::Mol;
@@ -88,7 +89,7 @@ sub parse_string {
 
 sub name_is {
     my ($self, $fname) = @_;
-    $fname =~ /\.sdf?$/i;
+    $fname =~ /\.mol$/i;
 }
 
 
@@ -135,7 +136,7 @@ sub write_string {
 
 =head1 VERSION
 
-0.16
+0.17
 
 =head1 SEE ALSO
 

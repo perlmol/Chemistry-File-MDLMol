@@ -1,5 +1,5 @@
 package Chemistry::File::SDF;
-$VERSION = '0.16';
+$VERSION = '0.17';
 # $Id$
 
 use base "Chemistry::File";
@@ -139,7 +139,7 @@ a given name. The SDF format description is not entirely clear in this regard.
 
 =head1 VERSION
 
-0.16
+0.17
 
 =head1 SEE ALSO
 

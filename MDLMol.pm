@@ -1,5 +1,5 @@
 package Chemistry::File::MDLMol;
-$VERSION = '0.10';
+$VERSION = '0.15';
 
 use base "Chemistry::File";
 use Chemistry::Mol;
@@ -90,6 +90,40 @@ sub file_is {
     
     return 0;
 }
+
+
+sub write_string {
+    my ($self, $mol, %opts) = @_;
+
+    my $s = sprintf "%s\n      perlmol   \n\n", $mol->name;
+    $s .= sprintf "%3i%3i%3i%3i%3i%3i%3i%3i%3i%3i%3i%6s\n", 
+        0+$mol->atoms, 0+$mol->bonds, 
+        0, 0, 0, 0, 0, 0, 0, 0, 999, "V2000";   # "counts" line
+
+    my $i = 1;
+    my %idx_map;
+    for my $atom ($mol->atoms) {
+        my ($x, $y, $z) = $atom->coords->array;
+
+        $s .= sprintf 
+            "%10.4f%10.4f%10.4f %-3s%2i%3i%3i%3i%3i%3i%3i%3i%3i%3i%3i%3i\n",
+            $x, $y, $z, $atom->symbol,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        $idx_map{$atom->id} = $i++;
+    }
+
+    for my $bond ($mol->bonds) {
+        my ($a1, $a2) = map {$idx_map{$_->id}} $bond->atoms;
+        $s .= sprintf "%3i%3i%3i%3i%3i%3i%3i\n", 
+            $a1, $a2, $bond->order,
+            0, 0, 0, 0;
+    }
+
+    $s .= "M  END\n";
+    $s;
+}
+
+
 
 1;
 

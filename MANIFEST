@@ -1,7 +1,11 @@
 Changes
-Makefile.PL
 MANIFEST
 MDLMol.pm
-SDF.pm
+Makefile.PL
 README
-t/1.t
+SDF.pm
+t/1.mol
+t/1.sdf
+t/mdlmol.t
+t/pod.t
+t/sdf.t

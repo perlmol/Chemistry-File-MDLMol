@@ -1,6 +1,4 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
-0.01  Mon Oct  6 16:08:12 2003
-	- original version; created by h2xs 1.22 with options
-		-AX Chemistry::File::MDLMol
-
+0.10  Fri Feb 20 2004
+	- First release

@@ -1,5 +1,5 @@
-Chemistry/File/MDLMol version 0.01
-Chemistry/File/SDF    version 0.01
+Chemistry/File/MDLMol version 0.10
+Chemistry/File/SDF    version 0.10
 ==================================
 
 This modules read MDL mol and sd files. Please note that it is at an
@@ -10,8 +10,8 @@ entirely useless.
 
 Chemistry::File::MDLMol reads only the basic connection table; that is,
 the coordinates and symbol of each atom, and the type and atoms of each bond.
-Chemistry::File::SDF does the same, returning a list of molecules. It doesn't
-read the properties that may be contained in the SD file.
+Chemistry::File::SDF does the same, returning a list of molecules. It also
+reads the data items for each molecule.
 
 The MDLmol module automatically registers the 'mdl' format with Chemistry::Mol,
 so that PDB files may be identified and read by Chemistry::Mol::read_mol().

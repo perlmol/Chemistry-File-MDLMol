@@ -1,5 +1,5 @@
 package Chemistry::File::SDF;
-$VERSION = '0.01';
+$VERSION = '0.10';
 
 use base "Chemistry::File";
 use Chemistry::Mol;
@@ -8,13 +8,16 @@ use strict;
 
 =head1 NAME
 
-Chemistry::File::SDF
+Chemistry::File::SDF - MDL Structure Data File reader
 
 =head1 SYNOPSIS
 
-    use Chemistry::File::MDLMol;
+    use Chemistry::File::SDF;
 
-    my $mol = Chemistry::Mol->read('myfile.mol');
+    my @mols = Chemistry::Mol->read('myfile.sdf');
+
+    # assuming that the file includes a <PKA> data item...
+    print $mols[0]->attr("sdf/<PKA>"); 
 
 =cut
 
@@ -25,6 +28,12 @@ Chemistry::Mol->register_format(sdf => __PACKAGE__);
 MDL SDF (V2000) reader.
 
 This module automatically registers the 'sdf' format with Chemistry::Mol.
+
+The parser returns a list of Chemistry::Mol objects.
+SDF data can be accessed by the $mol->attr method. Attribute names are
+prefixed by "sdf/", as shown in the synopsis. When a data item has a single
+line in the SDF file, the attribute is stored as a string; when there's more
+than one line, they are stored as an array reference.
 
 =cut
 
@@ -66,13 +75,6 @@ sub file_is {
 
 #   open F, $fname or croak "Could not open file $fname";
     
-#    while (<F>){
-#	if (/^ATOM/) {
-#	    close F;
-#	    return 1;
-#	}
-#    }
-
     return 0;
 }
 
@@ -80,11 +82,15 @@ sub file_is {
 
 =head1 SEE ALSO
 
-Chemistry::Mol
+L<Chemistry::Mol>
+
+The MDL file format specification.
+L<http://www.mdl.com/downloads/public/ctfile/ctfile.pdf> or
+Arthur Dalby et al., J. Chem. Inf. Comput. Sci, 1992, 32, 244-255.
 
 =head1 AUTHOR
 
-Ivan Tubert-Brohman <ivan@tubert.org>
+Ivan Tubert-Brohman <itub@cpan.org>
 
 =cut
 

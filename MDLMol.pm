@@ -102,6 +102,7 @@ sub file_is {
 sub write_string {
     my ($self, $mol, %opts) = @_;
 
+    no warnings 'uninitialized';
     my $s = sprintf "%s\n      perlmol   \n\n", $mol->name;
     $s .= sprintf "%3i%3i%3i%3i%3i%3i%3i%3i%3i%3i%3i%6s\n", 
         0+$mol->atoms, 0+$mol->bonds, 

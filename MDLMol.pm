@@ -4,17 +4,21 @@ $VERSION = '0.15';
 use base "Chemistry::File";
 use Chemistry::Mol;
 use strict;
+use warnings;
 
 =head1 NAME
 
-Chemistry::File::MDLMol - MDL molfile reader
+Chemistry::File::MDLMol - MDL molfile reader/writer
 
 =head1 SYNOPSIS
 
     use Chemistry::File::MDLMol;
 
+    # read a molecule
     my $mol = Chemistry::Mol->read('myfile.mol');
-    print $mol->print;
+
+    # write a molecule
+    $mol->write("myfile.mol");
 
 =cut
 
@@ -29,9 +33,11 @@ This module automatically registers the 'mdl' format with Chemistry::Mol.
 The first three lines of the molfile are stored as $mol->name, 
 $mol->attr("mdlmol/line2"), and $mol->attr("mdlmol/comment").
 
-This version only reads the basic connection table: atomic symbols, 
+This version only reads and writes the basic connection table: atomic symbols, 
 coordinates, bonds and bond types. It doesn't read charges, isotopes, or 
 any extended properties yet.
+
+This module is part of the PerlMol project, L<http://www.perlmol.org>.
 
 =cut
 
@@ -58,7 +64,8 @@ sub parse_string {
     for(1 .. $na) { # for each atom...
         $_ = shift @lines;
         my ($x, $y, $z, $symbol) = unpack("A10A10A10xA3", $_);
-        $mol->add_atom($atom_class->new(symbol=>$symbol, coords=>[$x, $y, $z], id => "a".++$n));
+        $mol->add_atom($atom_class->new(
+            symbol=>$symbol, coords=>[$x, $y, $z], id => "a".++$n));
     }
 
 
@@ -71,7 +78,7 @@ sub parse_string {
             $bond_class->new(
                 type => $type, 
                 atoms => [$mol->{byId}{"a$a1"}, $mol->{byId}{"a$a2"}],
-                order => $order
+                order => $order || 1
             )
         );
     }
@@ -127,6 +134,10 @@ sub write_string {
 
 1;
 
+=head1 VERSION
+
+0.15
+
 =head1 SEE ALSO
 
 L<Chemistry::Mol>
@@ -134,6 +145,8 @@ L<Chemistry::Mol>
 The MDL file format specification.
 L<http://www.mdl.com/downloads/public/ctfile/ctfile.pdf> or
 Arthur Dalby et al., J. Chem. Inf. Comput. Sci, 1992, 32, 244-255.
+
+The PerlMol website L<http://www.perlmol.org/>
 
 =head1 AUTHOR
 

@@ -1,21 +1,26 @@
 Chemistry/File/MDLMol version 0.15
-Chemistry/File/SDF    version 0.10
+Chemistry/File/SDF    version 0.15
 ==================================
 
-This modules read MDL mol and sd files. Please note that it is at an
-extremely early stage of development and implements only a tiny 
-fraction of the standard. However, it is a the tiny fraction that the
-author finds useful for a great fraction of everyday use, so it's not
-entirely useless.
+This modules read MDL mol and sd files. Please note that they are at an early
+stage of development and implement only a tiny fraction of the standard.
+However, it is a the tiny fraction that the author finds useful for a great
+fraction of everyday use, so it's not entirely useless.
 
-Chemistry::File::MDLMol reads only the basic connection table; that is,
-the coordinates and symbol of each atom, and the type and atoms of each bond.
-Chemistry::File::SDF does the same, returning a list of molecules. It also
-reads the data items for each molecule.
+Chemistry::File::MDLMol reads and writes only the basic connection table; that
+is, the coordinates and symbol of each atom, and the type and atoms of each
+bond.  Chemistry::File::SDF does the same, returning a list of molecules. It
+also reads the data items for each molecule.
 
 The MDLmol module automatically registers the 'mdl' format with Chemistry::Mol,
 so that PDB files may be identified and read by Chemistry::Mol::read_mol().
 The SDF module registers the 'sdf' format.
+
+CHANGES SINCE VERSION 0.10
+        - Added write_string method to MDLMol.pm and SDF.pm
+        - Changed SDF data storage attribute to a hash ref in 'sdf/data'
+          instead of storing each attribute individually. WARNING: incompatible
+          change.
 
 INSTALLATION
 
@@ -32,11 +37,11 @@ This module requires these other modules and libraries:
 
 Chemistry::Mol
 
-COPYRIGHT AND LICENCE
+COPYRIGHT AND LICENSE
 
 Put the correct copyright and licence information here.
 
-Copyright (C) 2003 Ivan Tubert
+Copyright (C) 2004 Ivan Tubert
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

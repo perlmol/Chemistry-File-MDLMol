@@ -1,26 +1,23 @@
-Chemistry/File/MDLMol version 0.15
-Chemistry/File/SDF    version 0.15
+Chemistry/File/MDLMol version 0.16
+Chemistry/File/SDF    version 0.16
 ==================================
 
 This modules read MDL mol and sd files. Please note that they are at an early
-stage of development and implement only a tiny fraction of the standard.
-However, it is a the tiny fraction that the author finds useful for a great
-fraction of everyday use, so it's not entirely useless.
+stage of development and implement only a fraction of the standard.  However,
+it is a fraction that the author finds useful for most everyday needs.
 
 Chemistry::File::MDLMol reads and writes only the basic connection table; that
 is, the coordinates and symbol of each atom, and the type and atoms of each
-bond.  Chemistry::File::SDF does the same, returning a list of molecules. It
+bond. Chemistry::File::SDF does the same, returning a list of molecules. It
 also reads the data items for each molecule.
 
 The MDLmol module automatically registers the 'mdl' format with Chemistry::Mol,
 so that PDB files may be identified and read by Chemistry::Mol::read_mol().
 The SDF module registers the 'sdf' format.
 
-CHANGES SINCE VERSION 0.10
-        - Added write_string method to MDLMol.pm and SDF.pm
-        - Changed SDF data storage attribute to a hash ref in 'sdf/data'
-          instead of storing each attribute individually. WARNING: incompatible
-          change.
+CHANGES SINCE VERSION 0.15
+        - Added missing name_is methods.
+        - Fixed default atom and bond class handling in MDLMol.
 
 INSTALLATION
 

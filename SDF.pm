@@ -1,5 +1,5 @@
 package Chemistry::File::SDF;
-$VERSION = '0.15';
+$VERSION = '0.16';
 # $Id$
 
 use base "Chemistry::File";
@@ -113,11 +113,17 @@ sub format_data {
     }
     $ret;
 }
+
 sub file_is {
     my ($self, $fname) = @_;
     
     return 1 if $fname =~ /\.sdf?$/i;
     return 0;
+}
+
+sub name_is {
+    my ($self, $fname) = @_;
+    $fname =~ /\.sdf?$/i;
 }
 
 sub string_is {
@@ -133,7 +139,7 @@ a given name. The SDF format description is not entirely clear in this regard.
 
 =head1 VERSION
 
-0.15
+0.16
 
 =head1 SEE ALSO
 

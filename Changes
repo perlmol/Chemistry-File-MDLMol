@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
+0.16  Wed Jun 30 2004
+        - Added missing name_is methods.
+        - Fixed default atom and bond class handling in MDLMol.
+
 0.15  Fri May 14 2004
         - Added write_string method to MDLMol.pm and SDF.pm
         - Changed SDF data storage attribute to a hash ref in 'sdf/data'

@@ -1,5 +1,5 @@
 package Chemistry::File::MDLMol;
-$VERSION = '0.15';
+$VERSION = '0.16';
 
 use base "Chemistry::File";
 use Chemistry::Mol;
@@ -46,8 +46,8 @@ sub parse_string {
     my $string = shift;
     my (%opts) = @_;
     my $mol_class = $opts{mol_class} || "Chemistry::Mol";
-    my $atom_class = $opts{atom_class} || "Chemistry::Atom";
-    my $bond_class = $opts{bond_class} || "Chemistry::Bond";
+    my $atom_class = $opts{atom_class} || $mol_class->atom_class;
+    my $bond_class = $opts{bond_class} || $mol_class->bond_class;
     my ($na, $nb); # number of atoms and bonds
     my $n = 0;
     local $_;
@@ -86,16 +86,15 @@ sub parse_string {
     return $mol;
 }
 
+sub name_is {
+    my ($self, $fname) = @_;
+    $fname =~ /\.sdf?$/i;
+}
+
 
 sub file_is {
-    my $self = shift;
-    my $fname = shift;
-    
-    return 1 if $fname =~ /\.mol$/i;
-
-#   open F, $fname or croak "Could not open file $fname";
-    
-    return 0;
+    my ($self, $fname) = @_;
+    $fname =~ /\.mol$/i;
 }
 
 
@@ -136,7 +135,7 @@ sub write_string {
 
 =head1 VERSION
 
-0.15
+0.16
 
 =head1 SEE ALSO
 

@@ -1,5 +1,5 @@
 package Chemistry::File::MDLMol;
-$VERSION = '0.10';
+$VERSION = '0.01';
 
 use base "Chemistry::File";
 use Chemistry::Mol;
@@ -11,9 +11,9 @@ Chemistry::File::MDLMol
 
 =head1 SYNOPSIS
 
-    use Chemistry::File::MDLMol 'mdlmol_read';
+    use Chemistry::File::MDLMol;
 
-    my $mol = mdlmol_read("myfile.mol");
+    my $mol = Chemistry::Mol->read('myfile.mol');
 
 =cut
 
@@ -34,8 +34,7 @@ sub parse_string {
     my $mol_class = $opts{mol_class} || "Chemistry::Mol";
     my $atom_class = $opts{atom_class} || "Chemistry::Atom";
     my $bond_class = $opts{bond_class} || "Chemistry::Bond";
-    my $m;
-    my ($na, $nb);
+    my ($na, $nb); # number of atoms and bonds
     my $n = 0;
     local $_;
 
@@ -48,14 +47,14 @@ sub parse_string {
 
     $_ = shift @lines;
     ($na, $nb) = map {s/ //g; $_} unpack("A3A3", $_);
-    for(1 .. $na){
+    for(1 .. $na) { # for each atom...
         $_ = shift @lines;
         my ($x, $y, $z, $symbol) = unpack("A10A10A10xA3", $_);
         $mol->add_atom($atom_class->new(symbol=>$symbol, coords=>[$x, $y, $z], id => "a".++$n));
     }
 
 
-    for(1..$nb){
+    for(1 .. $nb) { # for each bond...
         $_ = shift @lines;
         my ($a1, $a2, $type) = map {s/ //g; $_} unpack("A3A3A3", $_);
         $mol->add_bond($bond_class->new(type => $type, atoms =>
@@ -93,10 +92,6 @@ Chemistry::Mol
 =head1 AUTHOR
 
 Ivan Tubert-Brohman <ivan@tubert.org>
-
-=head1 VERSION
-
-$Id$
 
 =cut
 

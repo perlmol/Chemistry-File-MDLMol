@@ -1,5 +1,5 @@
 package Chemistry::File::SDF;
-$VERSION = '0.10';
+$VERSION = '0.01';
 
 use base "Chemistry::File";
 use Chemistry::Mol;
@@ -11,6 +11,10 @@ use strict;
 Chemistry::File::SDF
 
 =head1 SYNOPSIS
+
+    use Chemistry::File::MDLMol;
+
+    my $mol = Chemistry::Mol->read('myfile.mol');
 
 =cut
 
@@ -35,8 +39,22 @@ sub parse_string {
     for my $mol_string (@mol_strings) {
         my $mol = Chemistry::File::MDLMol->parse_string($mol_string, %opts);
         push @mols, $mol;
+        parse_data($mol, $mol_string);
     }
     @mols;
+}
+
+
+sub parse_data {
+    my ($mol, $mol_string) = @_;
+    my (@items) = split /\n>/, $mol_string; 
+    shift @items; # drop everything until first datum
+    for my $item (@items) {
+        my ($header, @data) = split /\n/, $item;
+        my ($field_name) = $header =~ /<.*?>/g;
+        warn "SDF: no field name\n", next unless $field_name;
+        $mol->attr("sdf/$field_name", @data == 1 ? $data[0] : \@data);
+    }
 }
 
 
@@ -67,10 +85,6 @@ Chemistry::Mol
 =head1 AUTHOR
 
 Ivan Tubert-Brohman <ivan@tubert.org>
-
-=head1 VERSION
-
-$Id$
 
 =cut
 

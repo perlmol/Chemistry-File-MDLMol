@@ -9,23 +9,9 @@ use Chemistry::File::SDF;
 
 #my $mol = Chemistry::Mol->read("test.mol");
 #print $mol->print;
+my @mols = Chemistry::Mol->read("test_data.sdf");
+#print $mols[0]->print;
 
-my @mols = Chemistry::Mol->read("sulfides.sdf");
-printf "found %d mols\n", scalar @mols;
-my $total_atoms;
-my $total_sulfur;
 for my $mol (@mols) {
-    my @sulfurs = grep {$_->symbol eq 'S'} $mol->atoms;
-    $total_sulfur += @sulfurs;
-    $total_atoms += $mol->atoms;
-    for my $s (@sulfurs) {
-        next if $s->bonds != 2;
-        for my $bond ($s->bonds) {
-            if (grep {$_->symbol eq 'C'} $bond->atoms) {
-                printf "%s\t%s-%s\t%.3f\n", $mol->name, $bond->atoms, 
-                    $bond->length;
-            }
-        }
-    }
+    print $mol->name, "\t", $mol->attr("sdf/<PKA>")||'', "\n";
 }
-print "Total atoms: $total_atoms\t$total_sulfur\n";

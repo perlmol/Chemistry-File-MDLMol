@@ -1,5 +1,5 @@
 package Chemistry::File::SDF;
-$VERSION = '0.17';
+$VERSION = '0.18';
 # $Id$
 
 use base "Chemistry::File";
@@ -16,6 +16,8 @@ Chemistry::File::SDF - MDL Structure Data File reader/writer
 
     use Chemistry::File::SDF;
 
+    # Simple interface (all at once)
+    # read all the molecules in the file
     my @mols = Chemistry::Mol->read('myfile.sdf');
 
     # assuming that the file includes a <PKA> data item...
@@ -26,6 +28,15 @@ Chemistry::File::SDF - MDL Structure Data File reader/writer
 
     # or write just one molecule
     $mol->write('myfile.sdf');
+
+
+    # Low level interface (one at a time)
+    # create reader
+    my $reader = Chemistry::Mol->read('myfile.sdf');
+    $reader->open('<');
+    while (my $mol = $reader->read_mol($reader->fh)) {
+        # do something with $mol
+    }
 
 =cut
 
@@ -48,23 +59,51 @@ This module is part of the PerlMol project, L<http://www.perlmol.org>.
 
 =cut
 
-sub parse_string {
+sub parse_string1 {
     my ($self, $string, %opts) = @_;
     my @mols;
 
     $string =~ s/\r\n?/\n/g; # normalize EOL
     my @mol_strings = split /\$\$\$\$\n/, $string;
     for my $mol_string (@mol_strings) {
-        my $mol = Chemistry::File::MDLMol->parse_string($mol_string, %opts);
+        my $mol = Chemistry::File::MDLMol->parse_string($mol_string, %opts, _must_override => 0);
         push @mols, $mol;
-        parse_data($mol, $mol_string);
+        $self->parse_data($mol, $mol_string);
     }
     @mols;
 }
 
+sub slurp_mol {
+    my ($self, $fh, %opts) = @_;
+    return if $fh->eof;
+    my $s;
+    while (<$fh>) {
+        last if /^\$\$\$\$/;
+        $s .= $_;
+    }
+    $s =~ s/\r\n?/\n/g; # normalize EOL
+    $s;
+}
+
+sub skip_mol {
+    my ($self, $fh, %opts) = @_;
+    return if $fh->eof;
+    while (<$fh>) {
+        return 1 if /^\$\$\$\$/;
+    }
+    return 0;
+}
+
+sub read_mol {
+    my ($self, $fh, %opts) = @_;
+    my $s = $self->slurp_mol($fh, %opts) or return;
+    my $mol = Chemistry::File::MDLMol->parse_string($s, %opts);
+    $self->parse_data($mol, $s);
+    $mol;
+}
 
 sub parse_data {
-    my ($mol, $mol_string) = @_;
+    my ($self, $mol, $mol_string) = @_;
     my (@items) = split /\n>/, $mol_string; 
     shift @items; # drop everything until first datum
     my %data_block;
@@ -136,10 +175,11 @@ sub string_is {
 
 Note that by storing the SDF data as a hash, there can be only one field with
 a given name. The SDF format description is not entirely clear in this regard.
+Also note that SDF data field names are considered to be case-sensitive.
 
 =head1 VERSION
 
-0.17
+0.18
 
 =head1 SEE ALSO
 
@@ -154,6 +194,12 @@ The PerlMol website L<http://www.perlmol.org/>
 =head1 AUTHOR
 
 Ivan Tubert-Brohman <itub@cpan.org>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2005 Ivan Tubert-Brohman. All rights reserved. This program is
+free software; you can redistribute it and/or modify it under the same terms as
+Perl itself.
 
 =cut
 

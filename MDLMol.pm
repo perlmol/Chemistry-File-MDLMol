@@ -1,9 +1,10 @@
 package Chemistry::File::MDLMol;
-$VERSION = '0.17';
+$VERSION = '0.18';
 # $Id$
 
 use base "Chemistry::File";
 use Chemistry::Mol;
+use Carp;
 use strict;
 use warnings;
 
@@ -42,46 +43,53 @@ This module is part of the PerlMol project, L<http://www.perlmol.org>.
 
 =cut
 
-sub parse_string {
-    my $self = shift;
-    my $string = shift;
-    my (%opts) = @_;
-    my $mol_class = $opts{mol_class} || "Chemistry::Mol";
+sub read_mol {
+    my ($self, $fh, %opts) = @_;
+    return if $fh->eof;
+
+    %opts = ( slurp => 1, %opts );
+    my $mol_class  = $opts{mol_class}  || "Chemistry::Mol";
     my $atom_class = $opts{atom_class} || $mol_class->atom_class;
     my $bond_class = $opts{bond_class} || $mol_class->bond_class;
-    my ($na, $nb); # number of atoms and bonds
-    my $n = 0;
     local $_;
 
     my $mol = $mol_class->new();
-    my @lines = split /\n/, $string;
-    my ($name, $line2, $comment) = splice @lines, 0, 3;
+
+    # header
+    my $name    = <$fh>; chomp $name;
+    my $line2   = <$fh>; chomp $line2;
+    my $comment = <$fh>; chomp $comment;
     $mol->name($name);
     $mol->attr("mdlmol/line2", $line2);
     $mol->attr("mdlmol/comment", $comment);
 
-    $_ = shift @lines;
-    ($na, $nb) = map {s/ //g; $_} unpack("A3A3", $_);
+    # counts line
+    defined ($_ = <$fh>) or croak "unexpected end of file";
+    my ($na, $nb) = unpack("A3A3", $_);
+
+    # atom block
     for(1 .. $na) { # for each atom...
-        $_ = shift @lines;
+        defined ($_ = <$fh>) or croak "unexpected end of file";
         my ($x, $y, $z, $symbol) = unpack("A10A10A10xA3", $_);
-        $mol->add_atom($atom_class->new(
-            symbol=>$symbol, coords=>[$x, $y, $z], id => "a".++$n));
+        $mol->new_atom(symbol => $symbol, coords => [$x*1, $y*1, $z*1]);
     }
 
-
+    # bond block
     for(1 .. $nb) { # for each bond...
-        $_ = shift @lines;
-        my ($a1, $a2, $type) = map {s/ //g; $_} unpack("A3A3A3", $_);
-        my $order;
-        $order = $type if $type =~ /^[123]$/;
-        $mol->add_bond(
-            $bond_class->new(
-                type => $type, 
-                atoms => [$mol->{byId}{"a$a1"}, $mol->{byId}{"a$a2"}],
-                order => $order || 1
-            )
+        defined ($_ = <$fh>) or croak "unexpected end of file";
+        my ($a1, $a2, $type) = map {$_*1} unpack("A3A3A3", $_);
+        my $order = $type =~ /^[123]$/ ? $type : 1;
+        $mol->new_bond(
+            type => $type, 
+            atoms => [$mol->atoms($a1,$a2)],
+            order => $order,
         );
+    }
+    if ($opts{slurp}) {
+        1 while <$fh>;
+    }
+    while (<$fh>) {
+        last if /^M  END/ or /^\$\$\$\$/;
     }
 
     return $mol;
@@ -137,7 +145,7 @@ sub write_string {
 
 =head1 VERSION
 
-0.17
+0.18
 
 =head1 SEE ALSO
 
@@ -152,6 +160,12 @@ The PerlMol website L<http://www.perlmol.org/>
 =head1 AUTHOR
 
 Ivan Tubert-Brohman <itub@cpan.org>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2005 Ivan Tubert-Brohman. All rights reserved. This program is
+free software; you can redistribute it and/or modify it under the same terms as
+Perl itself.
 
 =cut
 

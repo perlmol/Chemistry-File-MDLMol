@@ -1,5 +1,8 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
+0.18  Thu Jan 27 2005
+        - Compatibility with Chemistry::File 0.30 (for sequential SDF reading)
+
 0.17  Wed Jul 21 2004
         - Fixed name_is in MDLMol, which was using .sdf instead of .mol as the
           extension.

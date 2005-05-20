@@ -1,5 +1,11 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
+0.20  Fri May 20 2005
+        - Added support for charges and radicals.
+        - Add implicit hydrogens on read.
+        - Support for some query properties: atom lists, bond topology, and
+          bond types.
+
 0.19  Mon Jan 31 2005
         - Fixed documentation bug in SDF.pm SYNOPSIS.
 

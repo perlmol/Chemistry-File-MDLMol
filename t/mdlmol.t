@@ -2,7 +2,7 @@ use Test::More tests => 13;
 BEGIN { use_ok('Chemistry::File::MDLMol') };
 
 # read a molecule and see if some of the data is ok
-my $mol = Chemistry::Mol->read("t/1.mol");
+my $mol = Chemistry::Mol->read("t/mol/N2F2.mol");
 
 isa_ok($mol, 'Chemistry::Mol', '$mol');
 is($mol->name, "trans-Difluorodiazene", "name");
@@ -14,7 +14,7 @@ is($mol->bonds(1)->type, 2, "bond type");
 is($mol->bonds(1)->order, 2, "bond order");
 
 # try one with charges and radicals
-$mol = Chemistry::Mol->read('t/chg_rad.mol');
+$mol = Chemistry::Mol->read('t/mol/chg_rad.mol');
 is($mol->atoms(1)->formal_radical,      2, 'radical');
 is($mol->atoms(1)->implicit_hydrogens,  2, 'implicit_hydrogens');
 is($mol->atoms(4)->formal_charge,       -1, 'charge');

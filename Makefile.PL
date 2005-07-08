@@ -5,6 +5,7 @@ WriteMakefile(
     'NAME'		=> 'Chemistry::File::MDLMol',
     'VERSION_FROM'	=> 'MDLMol.pm',
     'PREREQ_PM'		=> {
-        'Chemistry::Mol' => "0.35" 
+        'Chemistry::Mol'  => "0.35",
+        'Chemistry::Ring' => "0.19",
     },
 );

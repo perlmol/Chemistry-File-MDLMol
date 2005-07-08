@@ -3,32 +3,36 @@ use warnings;
 use Test::More;
 use Chemistry::File::MDLMol;
 
-if (eval "use Chemistry::Pattern; use Chemistry::Ring; 1") {
-    plan tests => 5;
+my @patt_files = glob 't/pat/*.mol';
+my @mol_files  = glob 't/mol/*.mol';
+
+if (eval "use Chemistry::Pattern; 1") {
+    plan tests => 1 + 1 * @patt_files + 1 * @patt_files * @mol_files;
     #plan 'no_plan';
     ok(1, "loaded Chemistry::Pattern");
 } else {
-    plan skip_all => 'Chemistry::Pattern or Chemistry::Ring not installed';
+    plan skip_all => 'Chemistry::Pattern not installed';
 }
 
 #$Chemistry::File::MDLMol::DEBUG = 1;
-my $patt = Chemistry::Pattern->read('t/query.mol');
-isa_ok ($patt, 'Chemistry::Pattern');
 
-my @files = (
-    { name => 't/mol1.mol', matches => 2, },
-    { name => 't/mol2.mol', matches => 2, },
-    { name => 't/mol3.mol', matches => 0, },
-);
+for my $patt_file (@patt_files) {
+    my $patt = Chemistry::Pattern->read($patt_file);
+    isa_ok ($patt, 'Chemistry::Pattern');
+    my ($patt_basename) = $patt_file =~ /([^\/]*)\.mol/;
+    my %expected = split " ", $patt->name;
 
-#$Chemistry::Pattern::DEBUG=1;
+    for my $mol_file (@mol_files) {
+        my ($mol_basename) = $mol_file =~ /([^\/]*)\.mol/;
+        $expected{$mol_basename} ||= 0;
 
-for my $file (@files) {
-    my $mol = Chemistry::Mol->read($file->{name});
-    Chemistry::Ring::aromatize_mol($mol);
-    my $n = 0;
-    #print "\n\n\n\n******************\nTRYING $file->{name}\n\n";
-    $n++ while $patt->match($mol);
-    is ($n, $file->{matches}, "$file->{name} matches $file->{matches} times?");
+        my $mol = Chemistry::Mol->read($mol_file);
+        Chemistry::Ring::aromatize_mol($mol);
+
+        my $n = 0;
+        $n++ while $patt->match($mol);
+        is ($n, $expected{$mol_basename}, 
+            "$patt_basename matches $mol_basename $expected{$mol_basename} times?");
+    }
 }
 

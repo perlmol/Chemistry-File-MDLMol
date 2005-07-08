@@ -1,5 +1,11 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
+0.21
+        - Added automatic aromatization of patterns, as suggested by Peter 
+          Spiro.
+        - Added a new default test subroutine for bonds, that takes aromaticity
+          into account.
+
 0.20  Fri May 20 2005
         - Added support for charges and radicals.
         - Add implicit hydrogens on read.

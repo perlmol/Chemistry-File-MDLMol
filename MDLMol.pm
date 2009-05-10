@@ -1,5 +1,5 @@
 package Chemistry::File::MDLMol;
-$VERSION = '0.20';
+$VERSION = '0.21';
 # $Id$
 
 use base "Chemistry::File";
@@ -371,7 +371,7 @@ sub write_string {
 
 =head1 VERSION
 
-0.20
+0.21
 
 =head1 SEE ALSO
 
@@ -389,7 +389,7 @@ Ivan Tubert-Brohman <itub@cpan.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005 Ivan Tubert-Brohman. All rights reserved. This program is
+Copyright (c) 2009 Ivan Tubert-Brohman. All rights reserved. This program is
 free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 

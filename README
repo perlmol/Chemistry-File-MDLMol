@@ -1,5 +1,5 @@
-Chemistry/File/MDLMol version 0.20
-Chemistry/File/SDF    version 0.20
+Chemistry/File/MDLMol version 0.21
+Chemistry/File/SDF    version 0.21
 ==================================
 
 This modules read MDL mol and SDF (structure data file) files. 
@@ -8,11 +8,11 @@ The MDLmol module automatically registers the 'mdl' format with Chemistry::Mol,
 so that molfiles may be identified and read by Chemistry::Mol::read_mol().
 The SDF module registers the 'sdf' format.
 
-CHANGES SINCE VERSION 0.19
-        - Added support for charges and radicals.
-        - Add implicit hydrogens on read.
-        - Support for some query properties: atom lists, bond topology, and
-          bond types.
+CHANGES SINCE VERSION 0.20
+        - Added automatic aromatization of patterns, as suggested by Peter 
+          Spiro.
+        - Added a new default test subroutine for bonds, that takes aromaticity
+          into account.
 
 INSTALLATION
 
@@ -36,7 +36,7 @@ Some features such as substructure search also require other modules:
 
 COPYRIGHT AND LICENSE
 
-Copyright (C) 2005 Ivan Tubert-Brohman <itub@cpan.org>
+Copyright (C) 2009 Ivan Tubert-Brohman <itub@cpan.org>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

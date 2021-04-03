@@ -53,7 +53,7 @@ molfile: it reads coordinats, atom and bond types, charges, radicals, and atom
 lists. It does not read other things such as stereochemistry, 3d properties,
 isotopes, etc.
 
-This module is part of the PerlMol project, L<http://www.perlmol.org>.
+This module is part of the PerlMol project, L<https://github.com/perlmol>.
 
 =head2 Query properties
 
@@ -392,8 +392,6 @@ L<Chemistry::Mol>
 The MDL file format specification.
 L<http://www.mdl.com/downloads/public/ctfile/ctfile.pdf> or
 Arthur Dalby et al., J. Chem. Inf. Comput. Sci, 1992, 32, 244-255.
-
-The PerlMol website L<http://www.perlmol.org/>
 
 =head1 AUTHOR
 

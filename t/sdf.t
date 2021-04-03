@@ -53,4 +53,4 @@ ok($sdf_str eq $sdf_out, "read-write test");
 @mols = Chemistry::Mol->read("t/sdf/C.sdf");
 my @atoms = $mols[0]->atoms;
 is($atoms[0]->mass, 12.0107);
-is($atoms[1]->mass, 13);
+is($atoms[1]->mass, 13); # FIXME: will not pass with Chemistry::Isotope

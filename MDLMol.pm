@@ -381,6 +381,10 @@ sub write_string {
 
 0.21
 
+=head1 SOURCE CODE REPOSITORY
+
+L<https://github.com/perlmol/Chemistry-File-MDLMol>
+
 =head1 SEE ALSO
 
 L<Chemistry::Mol>

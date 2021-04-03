@@ -1,4 +1,4 @@
-use Test::More tests => 11;
+use Test::More tests => 13;
 BEGIN { use_ok('Chemistry::File::SDF') };
 
 use strict;
@@ -47,3 +47,10 @@ my $sdf_str;
 my $sdf_out = Chemistry::Mol->print(format => 'sdf', mols => \@mols);
 ok($sdf_str eq $sdf_out, "read-write test");
 
+
+# test isotopes
+
+@mols = Chemistry::Mol->read("t/sdf/C.sdf");
+my @atoms = $mols[0]->atoms;
+is($atoms[0]->mass, 12.0107);
+is($atoms[1]->mass, 13);

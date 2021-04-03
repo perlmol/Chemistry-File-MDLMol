@@ -49,7 +49,7 @@ The first three lines of the molfile are stored as $mol->name,
 $mol->attr("mdlmol/line2"), and $mol->attr("mdlmol/comment").
 
 This version only reads and writes some of the information available in a
-molfile: it reads coordinats, atom and bond types, charges, radicals, and atom
+molfile: it reads coordinates, atom and bond types, charges, radicals, and atom
 lists. It does not read other things such as stereochemistry, 3d properties,
 isotopes, etc.
 

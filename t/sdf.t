@@ -1,4 +1,4 @@
-use Test::More tests => 13;
+use Test::More tests => 14;
 BEGIN { use_ok('Chemistry::File::SDF') };
 
 use strict;
@@ -54,3 +54,4 @@ ok($sdf_str eq $sdf_out, "read-write test");
 my @atoms = $mols[0]->atoms;
 is($atoms[0]->mass, 12.0107);
 is($atoms[1]->mass, 13); # FIXME: will not pass with Chemistry::Isotope
+is($atoms[2]->mass, 13);

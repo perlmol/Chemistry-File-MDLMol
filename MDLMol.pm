@@ -156,9 +156,19 @@ sub read_mol {
             if $OLD_CHARGE_MAP{$charge};
         $old_radicals{$i} = 2
             if $charge && $charge == 4;
+        my $mass_number;
+        if( int $mass && eval { require Chemistry::Isotope } ) {
+            my $abundance =
+                Chemistry::Isotope::isotope_abundance($symbol);
+            ($mass_number) = sort { $abundance->{$b} cmp
+                                    $abundance->{$a} }
+                                  sort keys %$abundance;
+            $mass_number += $mass;
+        }
         $mol->new_atom(
             symbol         => $symbol, 
             coords         => [$x*1, $y*1, $z*1],
+            mass_number    => $mass_number,
         );
     }
 

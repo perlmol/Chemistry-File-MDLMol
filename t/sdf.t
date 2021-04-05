@@ -1,4 +1,4 @@
-use Test::More tests => 14;
+use Test::More tests => 15;
 BEGIN { use_ok('Chemistry::File::SDF') };
 
 use strict;
@@ -52,11 +52,17 @@ ok($sdf_str eq $sdf_out, "read-write test");
 
 my $C13_ISO = 13;
 my $C13_atom_block = 12.0107;
+my $M_ISO_out = 'M  ISO  1   2  13';
 if( eval { require Chemistry::Isotope } ) {
     $C13_ISO = $C13_atom_block = Chemistry::Isotope::isotope_mass(13, 6);
+    $M_ISO_out = 'M  ISO  2   2  13   3  13';
 }
 @mols = Chemistry::Mol->read("t/sdf/C.sdf");
 my @atoms = $mols[0]->atoms;
 is($atoms[0]->mass, 12.0107);
 is($atoms[1]->mass, $C13_ISO);
 is($atoms[2]->mass, $C13_atom_block);
+my( $M_ISO ) = grep { /^M  ISO/ }
+                    split "\n", Chemistry::Mol->print(format => 'sdf',
+                                                      mols => \@mols);
+is($M_ISO, $M_ISO_out);

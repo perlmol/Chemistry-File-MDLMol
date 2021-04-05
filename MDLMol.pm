@@ -342,6 +342,7 @@ sub write_string {
     my $i = 1;
     my %idx_map;
     my @charged_atoms;
+    my @isotope_atoms;
     my @radical_atoms;
     for my $atom ($mol->atoms) {
         my ($x, $y, $z) = $atom->coords->array;
@@ -351,6 +352,7 @@ sub write_string {
             $x, $y, $z, $atom->symbol,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
         push @charged_atoms, $i if $atom->formal_charge;
+        push @isotope_atoms, $i if $atom->mass_number;
         push @radical_atoms, $i if $atom->formal_radical;
         $idx_map{$atom->id} = $i++;
     }
@@ -367,6 +369,14 @@ sub write_string {
         $s .= "M  CHG  $n";
         for my $key (splice @charged_atoms, 0, $n) {
             $s .= sprintf "%4d%4d", $key, $mol->atoms($key)->formal_charge;
+        }
+        $s .= "\n";
+    }
+    while (@isotope_atoms) {
+        my $n = @isotope_atoms > 8 ? 8 : @isotope_atoms;
+        $s .= "M  ISO  $n";
+        for my $key (splice @isotope_atoms, 0, $n) {
+            $s .= sprintf "%4d%4d", $key, $mol->atoms($key)->mass_number;
         }
         $s .= "\n";
     }

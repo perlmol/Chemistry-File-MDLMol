@@ -164,6 +164,9 @@ sub read_mol {
                                     $abundance->{$a} }
                                   sort keys %$abundance;
             $mass_number += $mass;
+        } elsif( int $mass ) {
+            warn "no Chemistry::Isotope, cannot read mass number " .
+                 "from atom block\n";
         }
         $mol->new_atom(
             symbol         => $symbol, 

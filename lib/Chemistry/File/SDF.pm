@@ -1,5 +1,6 @@
 package Chemistry::File::SDF;
-$VERSION = '0.21';
+
+# VERSION
 # $Id$
 
 use base "Chemistry::File";

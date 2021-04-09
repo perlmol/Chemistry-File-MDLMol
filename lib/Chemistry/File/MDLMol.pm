@@ -401,10 +401,6 @@ sub write_string {
 
 1;
 
-=head1 VERSION
-
-0.21
-
 =head1 SOURCE CODE REPOSITORY
 
 L<https://github.com/perlmol/Chemistry-File-MDLMol>

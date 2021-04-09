@@ -164,10 +164,6 @@ Note that by storing the SDF data as a hash, there can be only one field with
 a given name. The SDF format description is not entirely clear in this regard.
 Also note that SDF data field names are considered to be case-sensitive.
 
-=head1 VERSION
-
-0.21
-
 =head1 SEE ALSO
 
 L<Chemistry::Mol>

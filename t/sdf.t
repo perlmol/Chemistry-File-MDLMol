@@ -6,7 +6,7 @@ use warnings;
 
 # Read all at once
 
-my @mols = Chemistry::Mol->read("t/1.sdf");
+my @mols = Chemistry::Mol->read("t/sdf/1.sdf");
 
 ok(@mols == 8, "read 8");
 my $i;
@@ -21,7 +21,7 @@ ok($mols[1]->attr("sdf/data")->{'PKA'} == 4.65, "attr");
 
 # sequential read
 
-my $reader = Chemistry::Mol->file('t/1.sdf');
+my $reader = Chemistry::Mol->file('t/sdf/1.sdf');
 isa_ok( $reader, 'Chemistry::File' );
 
 $reader->open;

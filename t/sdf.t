@@ -39,7 +39,7 @@ is($i, 8, "sequential read 8");
 
 # read/write test
 
-my $fname = "t/rw.sdf";
+my $fname = "t/sdf/rw.sdf";
 open F, "<", "$fname" or die "couldn't open $fname; $!\n";
 my $sdf_str;
 { local $/; $sdf_str = <F> }

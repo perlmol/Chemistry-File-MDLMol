@@ -24,3 +24,6 @@ test
 ^testmol.pl$
 \.gz$
 TODO
+
+test.mol
+test.sdf

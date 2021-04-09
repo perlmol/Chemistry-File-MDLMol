@@ -56,7 +56,7 @@ line in the SDF file, the attribute is stored as a string; when there's more
 than one line, they are stored as an array reference. The rest of the
 information on the line that holds the field name is ignored.
 
-This module is part of the PerlMol project, L<http://www.perlmol.org>.
+This module is part of the PerlMol project, L<https://github.com/perlmol>.
 
 =cut
 
@@ -164,6 +164,10 @@ Note that by storing the SDF data as a hash, there can be only one field with
 a given name. The SDF format description is not entirely clear in this regard.
 Also note that SDF data field names are considered to be case-sensitive.
 
+=head1 SOURCE CODE REPOSITORY
+
+L<https://github.com/perlmol/Chemistry-File-MDLMol>
+
 =head1 SEE ALSO
 
 L<Chemistry::Mol>
@@ -171,8 +175,6 @@ L<Chemistry::Mol>
 The MDL file format specification.
 L<http://www.mdl.com/downloads/public/ctfile/ctfile.pdf> or
 Arthur Dalby et al., J. Chem. Inf. Comput. Sci, 1992, 32, 244-255.
-
-The PerlMol website L<http://www.perlmol.org/>
 
 =head1 AUTHOR
 

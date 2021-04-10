@@ -29,8 +29,10 @@ This module requires these other modules and libraries:
 
     Chemistry::Mol      0.35
 
-Some features such as substructure search also require other modules:
+Some features such as substructure search and isotope reading also require
+other modules:
 
+    Chemistry::Isotope
     Chemistry::Pattern
     Chemistry::Ring
 
@@ -39,5 +41,4 @@ COPYRIGHT AND LICENSE
 Copyright (C) 2009 Ivan Tubert-Brohman <itub@cpan.org>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
+it under the same terms as Perl itself.

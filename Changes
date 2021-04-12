@@ -1,6 +1,6 @@
 Revision history for Perl extension Chemistry::File::MDLMol.
 
-0.22  unreleased
+0.22  Mon Apr 12 2021
         - Implemented reading and writing of isotopes (bug 134837)
         - Fixed typo in documentation.
         - Switched to Dist::Zilla.

@@ -61,7 +61,7 @@ This module is part of the PerlMol project, L<https://github.com/perlmol>.
 The MDL molfile format supports query properties such as atom lists, and
 special bond types such as "single or double", "single or aromatic", "double or
 aromatic", "ring bond", or "any". These properties are supported by this module
-in conjunction with L<Chemistry::Pattern>. However, support for query properies
+in conjunction with L<Chemistry::Pattern>. However, support for query properties
 is currently read-only, and the other properties listed in the specification
 are not supported yet.
 
@@ -81,7 +81,7 @@ To be able to search for aromatic substructures are represented by Kekule
 structures, molfiles that are read as patterns (with
 C<Chemistry::Pattern->read) are aromatized automatically by using the
 L<Chemistry::Ring> module. The default bond test from Chemistry::Pattern::Bond
-is overriden by one that checks the aromaticity in addition to the bond order.
+is overridden by one that checks the aromaticity in addition to the bond order.
 The test is,
 
     $patt->aromatic ?  $bond->aromatic 

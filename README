@@ -9,7 +9,7 @@ so that molfiles may be identified and read by Chemistry::Mol::read_mol().
 The SDF module registers the 'sdf' format.
 
 CHANGES SINCE VERSION 0.22
-        - Implemented reading of chiral flag.
+        - Implemented reading of the chiral flag.
         - Fixed POD typos. Thanks Florian Schlichting.
         - Updated MDL file specification links (bug 140933)
 

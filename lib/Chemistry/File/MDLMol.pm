@@ -414,6 +414,7 @@ L<Chemistry::Mol>
 The MDL file format specification.
 L<http://www.mdl.com/downloads/public/ctfile/ctfile.pdf> or
 Arthur Dalby et al., J. Chem. Inf. Comput. Sci, 1992, 32, 244-255.
+L<https://doi.org/10.1021/ci00007a012>.
 
 =head1 AUTHOR
 

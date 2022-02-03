@@ -142,7 +142,9 @@ sub read_mol {
 
     # counts line
     defined ($_ = <$fh>) or croak "unexpected end of file";
-    my ($na, $nb) = unpack("A3A3", $_);
+    my ($na, $nb, undef, undef, $is_chiral) = unpack("A3A3A3A3A3", $_);
+
+    $mol->attr("mdlmol/chiral", int $is_chiral);
 
     my %old_charges;
     my %old_radicals;

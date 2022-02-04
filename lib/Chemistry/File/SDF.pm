@@ -173,8 +173,11 @@ L<https://github.com/perlmol/Chemistry-File-MDLMol>
 L<Chemistry::Mol>
 
 The MDL file format specification.
-L<http://www.mdl.com/downloads/public/ctfile/ctfile.pdf> or
-Arthur Dalby et al., J. Chem. Inf. Comput. Sci, 1992, 32, 244-255.
+L<https://discover.3ds.com/ctfile-documentation-request-form#_ga=2.229779804.1581205944.1643725102-a2d5f010-6f4c-11ec-a2da-e3641d195888>,
+L<https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf>,
+L<https://web.archive.org/web/20070927033700/http://www.mdl.com/downloads/public/ctfile/ctfile.pdf>,
+or Arthur Dalby et al., J. Chem. Inf. Comput. Sci, 1992, 32, 244-255.
+L<https://doi.org/10.1021/ci00007a012>.
 
 =head1 AUTHOR
 

@@ -189,7 +189,8 @@ sub read_mol {
             type => $type, 
             atoms => [$mol->atoms($a1,$a2)],
             order => $order,
-            attr => { 'mdlmol/stereo' => int $stereo },
+            attr => { 'mdlmol/stereo' => int $stereo,
+                      'mdlmol/topology' => int $topology },
         );
         if ($mol->isa('Chemistry::Pattern')) {
             $self->bond_expr($bond, $i, $type, $topology);
